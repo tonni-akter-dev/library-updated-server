@@ -4,10 +4,7 @@ const mongoose = require("mongoose");
 
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb+srv://library-management-system:XtYcGi9ATPyxML8x@cluster0.qtpo1.mongodb.net/library-management", {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect("mongodb+srv://tonniakterdev:lHg7i0nesQcrx03P@cluster0.qtpo1.mongodb.net/test1");
     console.log("mongodb connection success!");
   } catch (err) {
     console.log("mongodb connection failed", err.message);
@@ -15,3 +12,4 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
+

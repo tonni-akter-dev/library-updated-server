@@ -2,25 +2,24 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const PORT = process.env.PORT || 8000;
-
-// routes
-// const bookingRoutes = require("./modules/booking/bookingRoutes");
-
 const app = express();
 const http = require("http");
 const Server = http.createServer(app);
 
-// middleware
-app.use(cors());
+// routes import 
+const bookRoutes = require("./modules/book/book.routes")
 
+
+// Middleware
+app.use(cors());
+app.use(express.json()); // Add this line to parse JSON requests
 
 connectDB();
 
-// routes
-// app.use("/api/v1/users");
-// app.use('/api', bookingRoutes);
+// Routes
+app.use("/api/books", bookRoutes);
 
-// testing api
+// Testing API
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
