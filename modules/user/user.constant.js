@@ -1,1 +1,4 @@
-// export const userRoleEnum = ["Student", "Faculty"];
+const userRoleEnum = ["Student", "Faculty"];
+module.exports = {
+    userRoleEnum,
+};

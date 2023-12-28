@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Books = require('../book/book.model')
+const { userRoleEnum } = require('../user/user.constant')
 
 const IssueBookSchema = new mongoose.Schema({
     fullName: {
@@ -10,14 +11,18 @@ const IssueBookSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
-
+    // populate the book  info
     bookId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Books', // Refers to the 'Books' model
+        ref: 'Books',
+    },
+    status: {
+        type: String,
+        enum: ['Pending', 'Accepted', 'Denied'],
+        default: 'Pending',
     },
     role: {
-        // type: userRoleEnum,
-        type: String,
+        type: userRoleEnum,
         require: true
     },
     email: {
@@ -32,26 +37,7 @@ const IssueBookSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
-    // title: {
-    //     type: String,
-    //     required: true,
-    // },
-    // authors: {
-    //     type: String,
-    //     required: false,
-    // },
-    // accessionNumber: {
-    //     type: Number,
-    //     required: false,
-    // },
-    // edition: {
-    //     type: String,
-    //     required: false,
-    // },
-    // publisher: {
-    //     type: String,
-    //     required: true,
-    // },
+
     issueDate: {
         type: String,
         required: true,
