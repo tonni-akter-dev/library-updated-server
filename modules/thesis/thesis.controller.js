@@ -63,10 +63,45 @@ const updateThesis = async (req, res) => {
     }
 }
 
+const getThesisById = async (req, res) => {
+    try {
+        const result = await Thesis.findById({ _id: req.params.id })
+        res.status(200).json({
+            success: true,
+            message: "Thesis retrieve successfully",
+            data: result
+        })
+    } catch (error) {
 
+        res.status(201).json({
+            success: false,
+            message: "Thesis retrieve failed",
+            error_message: error.message
+        })
+    }
+}
 
+const deleteAThesis = async (req, res) => {
+    try {
+        const result = await Thesis.findByIdAndDelete({ _id: req.params.id })
+        console.log(result)
+        res.status(200).json({
+            success: true,
+            message: "Book deleted successfully",
+            data: result
+        })
+    } catch (error) {
+        res.status(201).json({
+            success: false,
+            message: "Book delete failed",
+            error_message: error.message
+        })
+    }
+}
 
 module.exports = {
     addThesis,
-    updateThesis
+    updateThesis,
+    getThesisById,
+    deleteAThesis
 };
