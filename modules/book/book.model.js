@@ -11,25 +11,29 @@ const bookSchema = new mongoose.Schema(
             required: false,
         },
 
-        title: {
-            type: String,
-            required: true,
-        },
         ISBN10: {
             type: Number,
+            required: true,
+        },
+        title: {
+            type: String,
             required: true,
         },
         authors: {
             type: String,
             required: false,
         },
-        publisher: {
-            type: String,
-            required: true,
+        accessionNumber: {
+            type: Number,
+            required: false,
         },
         edition: {
             type: String,
             required: false,
+        },
+        publisher: {
+            type: String,
+            required: true,
         },
         price: {
             type: Number,

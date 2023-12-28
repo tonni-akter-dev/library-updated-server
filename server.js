@@ -8,6 +8,7 @@ const Server = http.createServer(app);
 
 // routes import 
 const bookRoutes = require("./modules/book/book.routes")
+const IssueAbookRoutes = require("./modules/issueBook/issueBook.routes")
 
 
 // Middleware
@@ -18,6 +19,7 @@ connectDB();
 
 // Routes
 app.use("/api/books", bookRoutes);
+app.use("/api/issueAbookRoutes", IssueAbookRoutes);
 
 // Testing API
 app.get("/", (req, res) => {

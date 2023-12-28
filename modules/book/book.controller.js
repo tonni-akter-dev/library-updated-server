@@ -48,7 +48,6 @@ const updateBook = async (req, res) => {
     }
 };
 
-
 const getAllBooks = async (req, res) => {
     try {
         const books = await Books.find();
@@ -66,9 +65,48 @@ const getAllBooks = async (req, res) => {
     }
 };
 
+const getBooksById = async (req, res) => {
+    try {
+        const result = await Books.findById({ _id: req.params.id })
+        res.status(200).json({
+            success: true,
+            message: "Book retrieve successfully",
+            data: result
+        })
+    } catch (error) {
+
+        res.status(201).json({
+            success: false,
+            message: "Book retrieve failed",
+            error_message: error.message
+        })
+    }
+}
+
+// deletE a book
+
+const deleteABook = async (req, res) => {
+    try {
+        const result = await Books.findByIdAndDelete({ _id: req.params.id })
+        console.log(result)
+        res.status(200).json({
+            success: true,
+            message: "Book deleted successfully",
+            data: result
+        })
+    } catch (error) {
+        res.status(201).json({
+            success: false,
+            message: "Book delete failed",
+            error_message: error.message
+        })
+    }
+}
 
 module.exports = {
     createBook,
     updateBook,
     getAllBooks,
+    getBooksById,
+    deleteABook
 };
