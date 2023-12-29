@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-import { userRoleEnum } from './user.constant';
+const { userRoleEnum } = require("./user.constant");
 
 const userSchema = new mongoose.Schema({
     fullName: {
