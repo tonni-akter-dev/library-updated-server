@@ -7,7 +7,6 @@ const issueABook = async (req, res) => {
         // Create a new IssueBook instance
         const newIssue = new IssueBook(req.body);
 
-        // Find the book based on bookId
         const bookInfo = await Books.findById(req.body.bookId);
 
         if (!bookInfo) {
@@ -16,7 +15,6 @@ const issueABook = async (req, res) => {
                 message: 'Book not found',
             });
         }
-
         // Populate the bookId field in the newIssue instance
         newIssue.bookId = bookInfo;
 
@@ -37,6 +35,23 @@ const issueABook = async (req, res) => {
     }
 };
 
+// get all issue book
+const getAllIssuedBook = async (req, res) => {
+    try {
+        const users = await IssueBook.find({})
+        res.status(200).send({
+            status: 200,
+            message: "Issued Books get successfully",
+            data: users
+        })
+    } catch (error) {
+        res.status(203).send({
+            message: err.message
+        })
+    }
+}
+
 module.exports = {
     issueABook,
+    getAllIssuedBook
 };

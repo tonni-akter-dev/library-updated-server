@@ -1,4 +1,6 @@
+const { generateToken } = require('../../utils/auth');
 const User = require('./user.model')
+const bcrcypt = require("bcryptjs");
 
 const registerUser = async (req, res) => {
     console.log(req.body)
@@ -17,7 +19,7 @@ const registerUser = async (req, res) => {
                 fullName: req.body.fullName,
                 instituteId: req.body.instituteId,
                 email: req.body.email,
-                password: req.body.password,
+                password: bcrcypt.hashSync(req.body.password),
                 department: req.body.department,
                 personalEmail: req.body.personalEmail,
                 presentAddress: req.body.presentAddress,
@@ -25,10 +27,13 @@ const registerUser = async (req, res) => {
             });
 
             const user = await newUser.save();
+            const token = await generateToken(user);
+
             res.status(200).send({
                 message: "We have created account successfully",
                 status: 200,
                 user,
+                accessToken: token,
             });
         }
     } catch (err) {
@@ -70,7 +75,22 @@ const loginUser = async (req, res) => {
         });
     }
 };
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find({})
+        res.status(200).send({
+            status: 200,
+            message: "Users get successfully",
+            data: users
+        })
+    } catch (error) {
+        res.status(203).send({
+            message: err.message
+        })
+    }
+}
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    getAllUsers
 }

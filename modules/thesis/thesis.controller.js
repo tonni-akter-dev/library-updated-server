@@ -99,9 +99,23 @@ const deleteAThesis = async (req, res) => {
     }
 }
 
+const getAllThesis = async (req, res) => {
+    try {
+        const users = await Thesis.find({})
+        res.status(200).send({
+            status: 200,
+            message: "Thesis get successfully",
+            data: users
+        })
+    } catch (error) {
+        res.status(203).send({
+            message: err.message
+        })
+    }
+}
 module.exports = {
     addThesis,
     updateThesis,
     getThesisById,
-    deleteAThesis
+    deleteAThesis,getAllThesis
 };
