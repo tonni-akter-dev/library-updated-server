@@ -6,8 +6,6 @@ const registerUser = async (req, res) => {
     console.log(req.body)
     try {
         const isExist = await User.findOne({ email: req.body.email });
-
-        // const isVerified = isExist?.isVerified;
         if (isExist) {
             return res.status(403).send({
                 message: `${req.body.email} is already Exist!`,
@@ -54,26 +52,26 @@ const loginUser = async (req, res) => {
             });
         }
 
-        if (user && (req.body.password, user.password)) {
+        if (user && bcrcypt.compareSync(req.body.password, user.password)){
             return res.send({
                 success: true,
                 message: "Logged in successfully",
                 status: 200,
                 user
             });
-        } else {
-            res.status(401).send({
-                success: false,
-                type: "password",
-                message: "Invalid user or password",
-                status: 401,
-            });
-        }
-    } catch (err) {
-        res.status(500).send({
-            message: err.message,
+    } else {
+        res.status(401).send({
+            success: false,
+            type: "password",
+            message: "Invalid user or password",
+            status: 401,
         });
     }
+} catch (err) {
+    res.status(500).send({
+        message: err.message,
+    });
+}
 };
 const getAllUsers = async (req, res) => {
     try {

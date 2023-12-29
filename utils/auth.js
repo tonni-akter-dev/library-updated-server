@@ -1,9 +1,7 @@
 require("dotenv").config();
 const jwt = require('jsonwebtoken')
 
-
 const generateToken = async (user) => {
-
     return jwt.sign(
 
         {
@@ -15,7 +13,6 @@ const generateToken = async (user) => {
         process.env.ACCESS_TOKEN_SECRET,
         {
             expiresIn: "10days"
-
         }
     )
 }
